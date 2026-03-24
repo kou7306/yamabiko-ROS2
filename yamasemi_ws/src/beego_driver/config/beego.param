@@ -1,0 +1,44 @@
+         VERSION       4.00000000
+
+            VOLT      12.50000000 #[V]
+           CYCLE       0.00100000 #[s]
+   CONTROL_CYCLE       0.01000000 #[s]
+ TORQUE_FINENESS       0.00000010
+
+       RADIUS[0]      -0.04060000 #[m]
+       RADIUS[1]       0.04060000 #[m]
+           TREAD       0.27650000 #[m]
+            MASS      12.00000000
+  TIRE_M_INERTIA       0.00180000
+  MOMENT_INERTIA       0.18500000
+   TORQUE_VISCOS       0.00000030
+   TORQUE_NEWTON       0.00040000
+      TORQUE_MAX       0.30000000
+    TORQUE_LIMIT       0.30000000
+
+     MOTOR_PHASE       0.00000000 #DC
+       COUNT_REV    2048.00000000 #[Counts/rev]
+            GEAR      54.06990000 #[in/out]
+        MOTOR_VC     650.00000000
+        MOTOR_TC       0.01468000
+         MOTOR_R       3.90000000 #[ohm]
+ MOTOR_M_INERTIA       0.00000000
+         GAIN_KP      65.00000000
+         GAIN_KI    1670.00000000
+    INTEGRAL_MAX       0.10000000 #[rev]
+
+         MAX_VEL       0.50000000 #[m/s]
+           MAX_W       3.14000000 #[rad/s]
+       MAX_ACC_V       1.00000000 #[m/ss]
+       MAX_ACC_W       6.28000000 #[rad/ss]
+  MAX_CENTRI_ACC       2.45000000 #0.25G
+
+            L_C1       0.01000000 #
+            L_K1     800.00000000 #
+            L_K2     300.00000000 #
+            L_K3     200.00000000 #
+          L_DIST       0.40000000 #
+
+     STOP_LINEAR       0.01000000
+     SPIN_LINEAR       0.05000000
+WHEEL_ANG_LINEAR       0.05000000

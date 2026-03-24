@@ -1,13 +1,14 @@
-yamabiko_driver:
+/**:
   ros__parameters:
     odom_frame_id: "odom"
     base_frame_id: "base_footprint"
-    Hz: 40
     left_wheel_joint: "left_wheel_joint"
     right_wheel_joint: "right_wheel_joint"
+    Hz: 40
     liner_vel_lim: 0.5
-    liner_accel_lim: 0.5
-    angular_vel_lim: 1.57
-    angular_accel_lim: 1.57
+    liner_accel_lim: 1.0
+    angular_vel_lim: 3.14
+    angular_accel_lim: 6.28
     calculate_odom_from_ypspur: true
     publish_odom_tf: true
+    debug_mode: false

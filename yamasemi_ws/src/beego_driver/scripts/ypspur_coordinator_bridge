@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+# ypspur-coordinator bridge for beego robot
+# Usage: ypspur_coordinator_bridge <param_file> [device]
+
+PARAM_FILE=$1
+DEVICE=${2:-/dev/ttyACM0}
+
+sudo chmod 777 "$DEVICE"
+ypspur-coordinator -p "$PARAM_FILE" -d "$DEVICE" --reconnect --high-resolution
+echo "robot parameters [$PARAM_FILE] loaded"

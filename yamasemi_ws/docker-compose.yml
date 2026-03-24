@@ -1,0 +1,18 @@
+services:
+  ros:
+    # image: ros:noetic
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    restart: no
+    network_mode: "host"
+    ipc: "host"
+    privileged: true
+    volumes:
+      - /dev:/dev
+      - ${HOME}/yamasemi_ws:/root/yamasemi_ws
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=$DISPLAY

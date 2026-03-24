@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.5)
-project(yamabiko_driver)
+project(beego_driver)
 
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-ament_auto_add_executable(yamabiko_driver
-  src/yamabiko_driver_node.cpp)
+ament_auto_add_executable(beego_driver
+  src/beego_driver_node.cpp)
 
-target_link_libraries(yamabiko_driver ypspur)
+target_link_libraries(beego_driver ypspur)
+
+target_include_directories(beego_driver
+  PUBLIC ${ypspur_INCLUDE_DIRS})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
