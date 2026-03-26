@@ -1,11 +1,32 @@
 #!/usr/bin/env sh
 
+set -eu
+
 # ypspur-coordinator bridge for beego robot
-# Usage: ypspur_coordinator_bridge <param_file> [device]
+# Usage: ypspur_coordinator_bridge <param_file>
 
-PARAM_FILE=$1
-DEVICE=${2:-/dev/ttyACM0}
+PARAM_FILE="${1:-}"
+DEVICE='/dev/serial/by-id/usb-T-frog_project_T-frog_Driver-if00'
+YPSPUR_PREFIX="${YPSPUR_PREFIX:-}"
 
-sudo chmod 777 "$DEVICE"
-ypspur-coordinator -p "$PARAM_FILE" -d "$DEVICE" --reconnect --high-resolution
-echo "robot parameters [$PARAM_FILE] loaded"
+if [ -z "$PARAM_FILE" ]; then
+  echo "Usage: $0 <param_file>" >&2
+  exit 2
+fi
+
+if [ ! -f "$PARAM_FILE" ]; then
+  echo "Parameter file not found: $PARAM_FILE" >&2
+  exit 2
+fi
+
+if [ -n "$YPSPUR_PREFIX" ] && [ -x "$YPSPUR_PREFIX/bin/ypspur-coordinator" ]; then
+  COORDINATOR="$YPSPUR_PREFIX/bin/ypspur-coordinator"
+elif command -v ypspur-coordinator >/dev/null 2>&1; then
+  COORDINATOR="$(command -v ypspur-coordinator)"
+else
+  echo "ypspur-coordinator was not found in PATH" >&2
+  exit 127
+fi
+
+echo "Starting ypspur-coordinator with param: $PARAM_FILE, device: $DEVICE"
+exec "$COORDINATOR" -p "$PARAM_FILE" -d "$DEVICE" --reconnect

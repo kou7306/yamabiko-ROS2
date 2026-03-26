@@ -1,2 +1,6 @@
-slides
-.collaborator
+yamasemi_ws/build/
+yamasemi_ws/install/
+yamasemi_ws/log/
+.DS_Store
+*.pyc
+__pycache__/
