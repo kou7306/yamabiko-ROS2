@@ -153,6 +153,48 @@ ros2 launch beego_driver beego_bringup_launch.py
 - `odom -> base_footprint` の TF を publish
 - 切断時は YP-Spur へ再接続を試みる
 
+## URG（測域センサ）
+
+北陽電機の URG LiDAR を ROS2 で使用する。
+
+### インストール
+
+```bash
+sudo apt install -y ros-humble-urg-node
+```
+
+### URG の起動
+
+URG を USB 接続し、認識を確認:
+
+```bash
+ls /dev/serial/by-id/ | grep Hokuyo
+```
+
+beego_driver と別ターミナルで起動:
+
+```bash
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch beego_driver urg_launch.py
+```
+
+`/scan` トピックに `sensor_msgs/LaserScan` が配信される。
+
+### rviz2 で可視化
+
+```bash
+rviz2
+```
+
+1. Fixed Frame を `laser` に変更
+2. Add → By topic → `/scan` → LaserScan を選択
+
+### デバイスパスの変更
+
+`urg_launch.py` の `serial_port` パラメータを実際のデバイスパスに合わせること。
+`ls /dev/serial/by-id/` で確認できる。
+
 ## トラブルシューティング
 
 | 症状 | 対処 |
