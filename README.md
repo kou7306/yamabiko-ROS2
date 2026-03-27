@@ -128,25 +128,11 @@ sudo chmod 777 /dev/ttyACM1  # URG
 
 ### 6. パラメータファイルの準備
 
-ロボットの制御パラメータファイル（`beego.param`）はリポジトリに含まれていません。`yamasemi_ws/src/beego_driver/config/beego.param` を手動で作成してください。
+ロボットの制御パラメータファイル（`beego.param`）はリポジトリに含まれていません。別途配布されたファイルを以下に配置してください：
 
-#### `beego.param`
-
-ypspur-coordinator が読み込むロボット物理パラメータです。以下の項目を設定します：
-
-| カテゴリ | 主なパラメータ | 説明 |
-|---------|-------------|------|
-| 電源 | `VOLT` | バッテリ電圧 [V] |
-| 制御周期 | `CYCLE`, `CONTROL_CYCLE` | PID 制御・軌道制御の周期 [s] |
-| 車体 | `RADIUS[0]`, `RADIUS[1]`, `TREAD` | 左右ホイール半径 [m]、トレッド幅 [m] |
-| 慣性 | `MASS`, `TIRE_M_INERTIA`, `MOMENT_INERTIA` | 車体質量 [kg]、タイヤ・車体慣性モーメント |
-| モーター | `COUNT_REV`, `GEAR`, `MOTOR_R`, `MOTOR_VC`, `MOTOR_TC` | エンコーダ分解能、ギア比、巻線抵抗など |
-| PID ゲイン | `GAIN_KP`, `GAIN_KI`, `INTEGRAL_MAX` | 速度制御の P/I ゲインと積分上限 |
-| 速度制限 | `MAX_VEL`, `MAX_W`, `MAX_ACC_V`, `MAX_ACC_W` | 最大並進速度・角速度・加速度 |
-| 軌道追従 | `L_C1`, `L_K1`〜`L_K3`, `L_DIST` | 経路追従制御のパラメータ |
-
-フォーマットは YP-Spur 標準の `.param` 形式（スペース区切りの `KEY VALUE` 行）です。
-サンプルは [YP-Spur リポジトリ](https://github.com/openspur/yp-spur) を参照してください。
+```
+yamasemi_ws/src/beego_driver/config/beego.param
+```
 
 ### 7. リポジトリのクローンとビルド
 
