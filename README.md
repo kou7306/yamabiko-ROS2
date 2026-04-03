@@ -18,7 +18,90 @@ URG LiDAR → urg_node → /scan (LaserScan)
 
 ---
 
-## ゼロからの環境構築
+## Docker で動かす（推奨）
+
+Docker を使えば ROS 2 や YP-Spur のインストール不要で動かせます。
+
+### 前提
+
+- Docker と Docker Compose がインストール済み
+- T-frog / URG が USB 接続されている
+
+Docker 未インストールの場合：
+
+```bash
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+# ログアウト → ログインして反映
+```
+
+### ビルド
+
+```bash
+git clone https://github.com/kou7306/yamabiko-ROS2.git
+cd yamabiko-ROS2
+docker compose build
+```
+
+### 起動
+
+全サービス（ypspur-coordinator, beego_driver, URG）をまとめて起動：
+
+```bash
+docker compose up
+```
+
+### 動作テスト
+
+別ターミナルから：
+
+```bash
+# ROS 2 がホストにない場合は Docker 経由で実行
+docker compose exec beego_driver \
+  ros2 topic pub /cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.1}, angular: {z: 0.0}}" -1
+
+# 停止
+docker compose exec beego_driver \
+  ros2 topic pub /cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.0}, angular: {z: 0.0}}" -1
+```
+
+ホストに ROS 2 がインストール済みなら直接：
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.1}, angular: {z: 0.0}}" -1
+```
+
+### rviz2（ホスト側で実行）
+
+Docker は `network_mode: host` なので、ホストの ROS 2 からトピックが見えます。
+
+```bash
+source /opt/ros/humble/setup.bash
+rviz2
+```
+
+### 個別起動
+
+特定のサービスだけ起動したい場合：
+
+```bash
+docker compose up ypspur beego_driver  # モーターだけ
+docker compose up urg                   # URG だけ
+```
+
+### 停止
+
+```bash
+docker compose down
+```
+
+---
+
+## ゼロからの環境構築（Docker なし）
 
 素の Ubuntu 22.04 / 24.04 マシンを想定しています。
 

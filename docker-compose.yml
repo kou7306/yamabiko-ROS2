@@ -1,0 +1,30 @@
+services:
+  # T-frog モータドライバとの通信プロセス
+  ypspur:
+    build: .
+    privileged: true
+    volumes:
+      - /dev:/dev
+    command: >
+      bash -c "
+        /ws/install/beego_driver/share/beego_driver/scripts/ypspur_coordinator_bridge
+        /ws/install/beego_driver/share/beego_driver/config/beego.param
+      "
+    network_mode: host
+
+  # beego_driver ROS2 ノード（モーター制御 + odom）
+  beego_driver:
+    build: .
+    depends_on:
+      - ypspur
+    command: ros2 run beego_driver beego_driver
+    network_mode: host
+
+  # URG LiDAR ノード
+  urg:
+    build: .
+    privileged: true
+    volumes:
+      - /dev:/dev
+    command: ros2 launch beego_driver urg_launch.py
+    network_mode: host
